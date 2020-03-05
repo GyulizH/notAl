@@ -1,0 +1,28 @@
+{
+  "name": "notAl",
+  "version": "1.0.0",
+  "description": "notAl App",
+  "main": "index.js",
+  "repository": "\"https://github.com/GyulizH/notAl.git\"",
+  "author": "Gyuliz Hadzhieva",
+  "license": "MIT",
+  "private": null,
+  "dependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "html-webpack-plugin": "^3.2.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production"
+  }
+}
+
