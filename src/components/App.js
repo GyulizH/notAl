@@ -1,5 +1,6 @@
 import React from 'react'
 import EmptyEditor from '../components/Editor/EmptyEditor'
+import NoteList from "./NoteList/NoteList";
 
 class App extends React.Component{
     render() {
@@ -13,6 +14,7 @@ class App extends React.Component{
            }}>
             <h1>My React App</h1>
             <EmptyEditor/>
+            <NoteList/>
         </div>
        )
     }

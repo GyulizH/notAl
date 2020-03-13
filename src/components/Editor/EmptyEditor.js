@@ -15,11 +15,11 @@ class EmptyEditor extends React.Component {
 
     handleTextChange (event) {
         this.setState({ text: event.target.value });
-        console.log(this.state.text)
     }
 
     saveNote() {
         this.props.addNote(this.state.text)
+        this.setState({text: ''})
     }
     render() {
         return (
