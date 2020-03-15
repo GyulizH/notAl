@@ -18,8 +18,10 @@ class EmptyEditor extends React.Component {
     }
 
     saveNote() {
+       //console.log(this.props)
         this.props.addNote(this.state.text)
-        this.setState({text: ''})
+         this.setState({text: ''})
+        console.log(this.state.text)
     }
     render() {
         return (
@@ -27,6 +29,7 @@ class EmptyEditor extends React.Component {
                 <h5>NOTAL</h5>
                 <TextArea
                     onChange={this.handleTextChange}
+                    value={this.state.text}
                 />
                 <button onClick={this.saveNote}>SAVE</button>
             </EmptyEditorWrapper>
@@ -34,8 +37,11 @@ class EmptyEditor extends React.Component {
     }
 }
 
-const mapDispatchToProps = {
-    addNote
-}
+const mapDispatchToProps = (dispatch) => ({
+     addNote,
+    dispatch
+})
 
-export default connect(null,mapDispatchToProps)(EmptyEditor)
+
+
+export default connect(null,mapDispatchToProps())(EmptyEditor)

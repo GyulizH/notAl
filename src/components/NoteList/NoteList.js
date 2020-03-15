@@ -3,14 +3,14 @@ import {connect} from 'react-redux'
 
 class NoteList extends React.Component{
     componentDidMount() {
-        console.log(this.props)
+
     }
 
     renderList(){
+        console.log(this.props.notes)
         return this.props.notes.notes.map(note => {
             return(
                 <p>{note}</p>
-
             )
         })
     }
@@ -24,8 +24,8 @@ class NoteList extends React.Component{
 
 }
 
-const mapStateToProps = (state) => {
-    return {notes: state.notes}
+const mapStateToProps = ({notes}) => {
+    return {notes}
 }
 
 export default connect(mapStateToProps)(NoteList)
