@@ -1,12 +1,15 @@
 import {ADD_NOTE} from "./action";
 
-const initialState = {
-    notes : ['notes']
-}
+let fromMemory="[]"
+try {
+  fromMemory = JSON.parse(localStorage.state).notes
+} catch(err){}
+
+const initialState = [...fromMemory]
 
 export const noteReducers = (state = initialState,action) => {
     if(action.type === ADD_NOTE){
-        return {...state, notes: [...state.notes,action.payload]}
+      return [...state, action.payload]
     }
     return state
 }

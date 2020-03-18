@@ -4,8 +4,6 @@ import NoteList from "./NoteList/NoteList";
 
 class App extends React.Component{
     render() {
-        //height:'100vh'
-        //flex-direction:'row'
        return (
            <div style={{width:'100%',
                height:'500px',

@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
 	entry: "./src/index.js",
+  devtool: 'sourcemap',
 	output: {
 		//target directory to put built js file
 		path: path.join(__dirname, "/dist"),
