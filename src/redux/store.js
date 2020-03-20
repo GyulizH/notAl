@@ -37,6 +37,9 @@ store.subscribe(() => {
 	saveState({
 		notes: store.getState().notes
 	});
+	loadState({
+		notes: store.getState().notes
+	})
 });
 
 console.log(store.getState());
