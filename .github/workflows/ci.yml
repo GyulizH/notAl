@@ -1,12 +1,16 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      -master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [10.x]
     steps:
       - uses: actions/checkout@v1
       - name: Run a one-line script
@@ -15,3 +19,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: build
+          run: build
+      - name: github-action-tester
+      - uses: skx/github-action-tester@release-0.10
