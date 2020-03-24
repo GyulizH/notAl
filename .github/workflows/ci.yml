@@ -7,22 +7,22 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [8.x, 10.x, 12.x]
+
     steps:
       - uses: actions/checkout@v1
-      - name: Run a one-line script
-        run: echo Hello, world!
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-      - uses: borales/actions-yarn@v2.0.0
-         with:
-          cmd: build
-      - name: github-action-tester
-      - uses: skx/github-action-tester@release-0.10
-      - name: GitHub Action for Yarn
-      - uses: Borales/actions-yarn@v2.1.0
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install -g yarn
+      - name: yarn install, build, and test
+          run: |
+            yarn install
+            yarn run build
+            yarn test
