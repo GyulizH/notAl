@@ -23,3 +23,5 @@ jobs:
           run: yarn build
       - name: github-action-tester
       - uses: skx/github-action-tester@release-0.10
+      - name: GitHub Action for Yarn
+      - uses: Borales/actions-yarn@v2.1.0
