@@ -20,7 +20,7 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
       - name: build
-          run: yarn build
+          run: build
       - name: github-action-tester
       - uses: skx/github-action-tester@release-0.10
       - name: GitHub Action for Yarn
