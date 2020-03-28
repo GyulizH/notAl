@@ -12,7 +12,9 @@ class App extends React.Component{
            }}>
             <h1>My React App</h1>
             <EmptyEditor/>
-            <NoteList/>
+            <div>
+                <NoteList/>
+            </div>
         </div>
        )
     }

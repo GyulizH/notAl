@@ -7,31 +7,45 @@ class EmptyEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: ''
+            noteTitle: '',
+            noteText:''
         }
         this.handleTextChange = this.handleTextChange.bind(this)
+        this.handleInputChange = this.handleInputChange.bind(this)
         this.saveNote = this.saveNote.bind(this)
     }
 
     handleTextChange (event) {
-        this.setState({ text: event.target.value });
+        this.setState({ noteText: event.target.value });
+    }
+
+    handleInputChange(event){
+        console.log(this.state)
+        this.setState({ noteTitle: event.target.value })
+        console.log(this.state.noteTitle);
     }
 
     saveNote() {
-       //console.log(this.props)
-        this.props.addNote(this.state.text)
-         this.setState({text: ''})
-        console.log(this.state.text)
+        console.log("hey")
+        this.props.addNote(this.state.noteText)
+         this.setState({noteText: ''})
     }
     render() {
         return (
             <EmptyEditorWrapper>
                 <h5>NOTAL</h5>
+                <form>
+                    <input
+                        placeholder='Note title...'
+                        value={this.state.noteTitle ? this.state.noteTitle : ''}
+                        onChange={this.handleInputChange}
+                    />
                 <TextArea
                     onChange={this.handleTextChange}
-                    value={this.state.text}
+                    value={this.state.noteText}
                 />
-                <button onClick={this.saveNote}>SAVE</button>
+                </form>
+                  <button onClick={this.saveNote}>SAVE</button>
             </EmptyEditorWrapper>
         )
     }
