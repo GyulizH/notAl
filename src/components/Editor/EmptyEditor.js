@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {EmptyEditorWrapper,TextArea} from "./EmptyEditor.sc";
+import {EditorWrapper,TextArea, EditorFrom,EditorInput} from "./EmptyEditor.sc";
 import {addNote} from "../../redux/notelist/action";
 
 class EmptyEditor extends React.Component {
@@ -32,10 +32,10 @@ class EmptyEditor extends React.Component {
     }
     render() {
         return (
-            <EmptyEditorWrapper>
+            <EditorWrapper>
                 <h5>NOTAL</h5>
-                <form>
-                    <input
+                <EditorFrom>
+                    <EditorInput
                         placeholder='Note title...'
                         value={this.state.noteTitle ? this.state.noteTitle : ''}
                         onChange={this.handleInputChange}
@@ -44,9 +44,9 @@ class EmptyEditor extends React.Component {
                     onChange={this.handleTextChange}
                     value={this.state.noteText}
                 />
-                </form>
+                </EditorFrom>
                   <button onClick={this.saveNote}>SAVE</button>
-            </EmptyEditorWrapper>
+            </EditorWrapper>
         )
     }
 }

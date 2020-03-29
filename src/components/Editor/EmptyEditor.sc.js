@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const EmptyEditorWrapper = styled.div`
+export const EditorWrapper = styled.div`
        display:flex;
        flex-direction:column;
        width:100%;
@@ -9,6 +9,18 @@ export const EmptyEditorWrapper = styled.div`
        background-color: #90a959;
     `;
 
+export const EditorFrom = styled.form`
+       display:flex;
+       flex-direction:column;
+       width:100%;
+       height:100%;
+       outline: none;
+`;
+
+export const EditorInput = styled.input`
+      outline: none;
+      border: 1px solid black;
+`;
 export const TextArea = styled.textarea`
        display:flex;
        flex-direction:column;
