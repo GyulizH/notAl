@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {EditorWrapper,TextArea, EditorFrom,EditorInput} from "./NoteEditor.sc";
+import {EditorWrapper,TextArea, EditorForm,EditorInput} from "./NoteEditor.sc";
 import {addNote} from "../../redux/notelist/action";
 
 class NoteEditor extends React.Component {
@@ -8,7 +8,7 @@ class NoteEditor extends React.Component {
         super(props);
         this.state = {
                 noteTitle: '',
-                noteText:''
+                noteText:'',
         }
         this.handleTextChange = this.handleTextChange.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
@@ -43,7 +43,7 @@ class NoteEditor extends React.Component {
         return (
             <EditorWrapper>
                 <h5>NOTAL</h5>
-                <EditorFrom>
+                <EditorForm>
                     <EditorInput
                         placeholder='Note title...'
                         value={this.state.noteTitle ? this.state.noteTitle : ''}
@@ -53,7 +53,7 @@ class NoteEditor extends React.Component {
                     onChange={this.handleTextChange}
                     value={this.state.noteText}
                 />
-                </EditorFrom>
+                </EditorForm>
                   <button onClick={this.saveNote}>SAVE</button>
             </EditorWrapper>
         )

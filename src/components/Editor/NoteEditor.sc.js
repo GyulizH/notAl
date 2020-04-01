@@ -9,7 +9,7 @@ export const EditorWrapper = styled.div`
        background-color: #90a959;
     `;
 
-export const EditorFrom = styled.form`
+export const EditorForm = styled.form`
        display:flex;
        flex-direction:column;
        width:100%;
