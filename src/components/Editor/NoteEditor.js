@@ -1,14 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {EditorWrapper,TextArea, EditorFrom,EditorInput} from "./EmptyEditor.sc";
+import {EditorWrapper,TextArea, EditorFrom,EditorInput} from "./NoteEditor.sc";
 import {addNote} from "../../redux/notelist/action";
 
-class EmptyEditor extends React.Component {
+class NoteEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            noteTitle: '',
-            noteText:''
+                noteTitle: '',
+                noteText:''
         }
         this.handleTextChange = this.handleTextChange.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
@@ -16,19 +16,28 @@ class EmptyEditor extends React.Component {
     }
 
     handleTextChange (event) {
-        this.setState({ noteText: event.target.value });
+        //let textValue = event.target.value
+         this.setState({noteText : event.target.value})
+        //use spread operator
+       // this.setState(state => ({note: Object.assign({}, state.note, {noteText: textValue})}));
     }
 
     handleInputChange(event){
-        console.log(this.state)
-        this.setState({ noteTitle: event.target.value })
-        console.log(this.state.noteTitle);
+       // let inputValue = event.target.value
+        this.setState({noteTitle : event.target.value})
+        //use spread operator
+        //this.setState(state => ({note: Object.assign({}, state.note, {noteTitle: inputValue})}));
     }
 
     saveNote() {
-        console.log("hey")
-        this.props.addNote(this.state.noteText)
+        let note = {
+            noteTitle: this.state.noteTitle,
+            noteText: this.state.noteText
+        }
+
+        this.props.addNote(note)
          this.setState({noteText: ''})
+        this.setState({noteTitle: ''})
     }
     render() {
         return (
@@ -58,4 +67,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 
-export default connect(null,mapDispatchToProps())(EmptyEditor)
+export default connect(null,mapDispatchToProps())(NoteEditor)

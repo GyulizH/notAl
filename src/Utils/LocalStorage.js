@@ -3,6 +3,7 @@ import {ADD_NOTE} from "../redux/notelist/action";
 export default function ({dispatch}) {
     return next => action => {
         if (action.type === ADD_NOTE) {
+            console.log(action.payload)
             localStorage.setItem('note', JSON.stringify(action.payload))
         }
         next(action)

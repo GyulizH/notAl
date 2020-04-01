@@ -7,7 +7,11 @@ class NoteList extends React.Component{
     }
 
     renderList(){
-        return this.props.notes.map(note => {
+        let noteTitles = []
+        for(let note of this.props.notes){
+            noteTitles.push(note.noteTitle)
+        }
+        return noteTitles.map(note => {
             return(
                 <p>{note}</p>
             )

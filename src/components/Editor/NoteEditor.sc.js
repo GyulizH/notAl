@@ -20,6 +20,8 @@ export const EditorFrom = styled.form`
 export const EditorInput = styled.input`
       outline: none;
       border: 1px solid black;
+      width: 20%;
+      height: 30px;
 `;
 export const TextArea = styled.textarea`
        display:flex;

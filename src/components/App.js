@@ -1,5 +1,5 @@
 import React from 'react'
-import EmptyEditor from '../components/Editor/EmptyEditor'
+import EmptyEditor from './Editor/NoteEditor'
 import NoteList from "./NoteList/NoteList";
 
 class App extends React.Component{
@@ -13,7 +13,7 @@ class App extends React.Component{
             <h1>My React App</h1>
             <EmptyEditor/>
             <div>
-                <NoteList/>
+            <NoteList/>
             </div>
         </div>
        )

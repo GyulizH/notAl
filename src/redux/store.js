@@ -12,28 +12,8 @@ const store = createStore(
 	reducers,
 	composeWithDevTools(applyMiddleware(thunk))
 );
-
-const persistData = store => next => action => {
-	let localState = localStorage.getItem("note-list");
-
-	if (localState && typeof JSON.parse(localState) === "object") {
-		localState = JSON.parse(localState);
-	} else {
-		let allNotes = action.payload;
-		let notesState = { allNotes: allNotes };
-		localState = Object.assign({}, { notes: notesState });
-	}
-};
-
-const addNoteMiddleWare = store => next => action => {
-	if (action.type === ADD_NOTE) {
-		localStorage.setItem("notes", JSON.stringify(action.payload));
-	}
-	return next(action);
-};
-
+console.log("the state",store.getState());
 store.subscribe(() => {
-	console.log('An action is dispatched')
 	saveState({
 		notes: store.getState().notes
 	});
@@ -42,5 +22,5 @@ store.subscribe(() => {
 	})
 });
 
-console.log(store.getState());
+console.log("the state",store.getState());
 export default store;
