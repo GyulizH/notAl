@@ -15,26 +15,25 @@ class NoteEditor extends React.Component {
         this.saveNote = this.saveNote.bind(this)
     }
 
-    handleTextChange (event) {
-        //let textValue = event.target.value
-         this.setState({noteText : event.target.value})
-        //use spread operator
-       // this.setState(state => ({note: Object.assign({}, state.note, {noteText: textValue})}));
-    }
+  handleTextChange(event) {
+    //let textValue = event.target.value
+    this.setState({ noteText: event.target.value });
+    //use spread operator
+    // this.setState(state => ({note: Object.assign({}, state.note, {noteText: textValue})}));
+  }
 
-    handleInputChange(event){
-       // let inputValue = event.target.value
-        this.setState({noteTitle : event.target.value})
-        //use spread operator
-        //this.setState(state => ({note: Object.assign({}, state.note, {noteTitle: inputValue})}));
-    }
+  handleInputChange(event) {
+    // let inputValue = event.target.value
+    this.setState({ noteTitle: event.target.value });
+    //use spread operator
+    //this.setState(state => ({note: Object.assign({}, state.note, {noteTitle: inputValue})}));
+  }
 
-    saveNote() {
-        let note = {
-            noteTitle: this.state.noteTitle,
-            noteText: this.state.noteText
-        }
-
+  saveNote() {
+    let note = {
+      noteTitle: this.state.noteTitle,
+      noteText: this.state.noteText
+    };
         this.props.addNote(note)
          this.setState({noteText: ''})
         this.setState({noteTitle: ''})
@@ -60,11 +59,9 @@ class NoteEditor extends React.Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-     addNote,
-    dispatch
-})
+const mapDispatchToProps = dispatch => ({
+  addNote,
+  dispatch
+});
 
-
-
-export default connect(null,mapDispatchToProps())(NoteEditor)
+export default connect(null, mapDispatchToProps())(NoteEditor);
