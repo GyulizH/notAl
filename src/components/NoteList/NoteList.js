@@ -7,13 +7,11 @@ class NoteList extends React.Component {
   constructor(props) {
     super(props)
     this.selectNote = this.selectNote.bind(this)
-    console.log(this.props)
   }
   componentDidMount() {}
 
   selectNote(id) {
     const selectedNote = this.props.notes.find((note) => note.id === id)
-    console.log(selectedNote)
     this.props.selectNote(selectedNote)
     return selectedNote
   }
