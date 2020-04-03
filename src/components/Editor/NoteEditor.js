@@ -15,7 +15,7 @@ class NoteEditor extends React.Component {
       noteTitle: '',
       noteText: '',
       id: null,
-      selectedNote : {}
+      selectedNote: {},
     }
     this.handleTextChange = this.handleTextChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -50,14 +50,18 @@ class NoteEditor extends React.Component {
           <EditorInput
             placeholder="Note title..."
             value={
-              this.props.selectedNote.noteTitle ? this.props.selectedNote.noteTitle : this.state.noteTitle
+              this.props.selectedNote.noteTitle
+                ? this.props.selectedNote.noteTitle
+                : this.state.noteTitle
             }
             onChange={this.handleInputChange}
           />
           <TextArea
             onChange={this.handleTextChange}
             value={
-              this.props.selectedNote.noteText? this.props.selectedNote.noteText : this.state.noteText
+              this.props.selectedNote.noteText
+                ? this.props.selectedNote.noteText
+                : this.state.noteText
             }
           />
         </EditorForm>
@@ -69,7 +73,7 @@ class NoteEditor extends React.Component {
 const mapStateToProps = ({ selectedNote }) => {
   return { selectedNote }
 }
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   addNote,
   dispatch,
 })
