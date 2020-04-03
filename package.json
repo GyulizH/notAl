@@ -28,7 +28,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
-    "prettier:fix": "prettier src/**/*.{j,t}s{x,} --write"
+    "prettier:fix": "prettier 'src/**/*.{t,j}s' --write"
   },
   "devDependencies": {
     "prettier": "2.0.2"

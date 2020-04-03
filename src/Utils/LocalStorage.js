@@ -1,37 +1,37 @@
-import { ADD_NOTE } from "../redux/notelist/action";
+import { ADD_NOTE } from '../redux/notelist/action'
 
 export default function ({ dispatch }) {
   return (next) => (action) => {
     if (action.type === ADD_NOTE) {
-      console.log(action.payload);
-      localStorage.setItem("note", JSON.stringify(action.payload));
+      console.log(action.payload)
+      localStorage.setItem('note', JSON.stringify(action.payload))
     }
-    next(action);
-  };
+    next(action)
+  }
 }
 
 export const loadState = () => {
   try {
-    const serializedState = localStorage.getItem("state");
+    const serializedState = localStorage.getItem('state')
 
     if (serializedState === null) {
-      return ["empty"];
+      return ['empty']
     }
 
-    return JSON.parse(serializedState);
+    return JSON.parse(serializedState)
   } catch (err) {
-    return undefined;
+    return undefined
   }
-};
+}
 
 export const saveState = (state) => {
   try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem("state", serializedState);
+    const serializedState = JSON.stringify(state)
+    localStorage.setItem('state', serializedState)
   } catch (err) {
     // die
   }
-};
+}
 
 // const LocalStorage = {};
 // //the getter method
