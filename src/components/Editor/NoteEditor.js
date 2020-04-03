@@ -9,6 +9,7 @@ import {
 import { addNote } from '../../redux/notelist/action'
 import { selectedNoteReducer as selectedNote } from '../../redux/selectedNote/reducer'
 
+
 class NoteEditor extends React.Component {
   constructor(props) {
     super(props)
@@ -76,5 +77,6 @@ const mapDispatchToProps = (dispatch) => ({
   addNote,
   dispatch,
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps())(NoteEditor)

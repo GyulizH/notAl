@@ -1,7 +1,6 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { selectNote } from '../../redux/selectedNote/action'
-import { selectedNoteReducer as selectedNote } from '../../redux/selectedNote/reducer'
+import React from "react";
+import { connect } from "react-redux";
+import {selectNote} from "../../redux/selectedNote/action";
 
 class NoteList extends React.Component {
   constructor(props) {
