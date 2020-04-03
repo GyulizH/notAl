@@ -1,16 +1,16 @@
-import React from "react";
-import EmptyEditor from "./Editor/NoteEditor";
-import NoteList from "./NoteList/NoteList";
+import React from 'react'
+import EmptyEditor from './Editor/NoteEditor'
+import NoteList from './NoteList/NoteList'
 
 class App extends React.Component {
   render() {
     return (
       <div
         style={{
-          width: "100%",
-          height: "1000px",
-          display: "flex",
-          flexDirection: "column",
+          width: '100%',
+          height: '1000px',
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <h1>My React App</h1>
@@ -19,8 +19,8 @@ class App extends React.Component {
           <NoteList />
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
