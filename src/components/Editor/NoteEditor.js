@@ -53,15 +53,20 @@ class NoteEditor extends React.Component {
     return (
       <EditorWrapper>
         <h5>NOTAL</h5>
+        {JSON.stringify(this.props.selectedNote, null, 2)}
         <EditorForm>
           <EditorInput
             placeholder="Note title..."
-            value={this.state.noteTitle ? this.state.noteTitle : ''}
+            value={
+              this.props.selectedNote.selectedNote ? this.props.selectedNote.selectedNote.noteTitle : ''
+            }
             onChange={this.handleInputChange}
           />
           <TextArea
             onChange={this.handleTextChange}
-            value={this.state.noteText}
+            value={
+              this.props.selectedNote ? this.props.selectedNote.noteText : ''
+            }
           />
         </EditorForm>
         <button onClick={this.saveNote}>SAVE</button>
@@ -72,7 +77,7 @@ class NoteEditor extends React.Component {
 const mapStateToProps = ({ selectedNote }) => {
   return { selectedNote }
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   addNote,
   dispatch,
 })
