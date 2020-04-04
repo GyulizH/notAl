@@ -5,9 +5,10 @@ import {
   TextArea,
   EditorForm,
   EditorInput,
+  EditorHeader,
+  EditorButton
 } from './NoteEditor.sc'
 import { addNote } from '../../redux/notelist/action'
-
 
 class NoteEditor extends React.Component {
   constructor(props) {
@@ -43,10 +44,29 @@ class NoteEditor extends React.Component {
     this.setState({ id: null })
   }
 
+  enterPressed(event) {
+    let note = {
+      noteTitle: this.state.noteTitle,
+      noteText: this.state.noteText,
+      id: Date.now(),
+    }
+    let code = event.keyCode || event.which
+    if (code === 13 && note.noteText !== '') {
+      this.props.addNote(note)
+      this.setState({ noteText: '' })
+      this.setState({ noteTitle: '' })
+      this.setState({ id: null })
+    }
+  }
+
   render() {
     return (
       <EditorWrapper>
-        <h5>NOTAL</h5>
+        <EditorHeader>
+          NOTAL
+          <EditorButton onClick={this.saveNote}>SAVE</EditorButton>
+          <button onClick={this.saveNote}>DELETE</button>
+        </EditorHeader>
         <EditorForm>
           <EditorInput
             placeholder="Note title..."
@@ -64,9 +84,9 @@ class NoteEditor extends React.Component {
                 ? this.props.selectedNote.noteText
                 : this.state.noteText
             }
+            onKeyPress={this.enterPressed.bind(this)}
           />
         </EditorForm>
-        <button onClick={this.saveNote}>SAVE</button>
       </EditorWrapper>
     )
   }
@@ -78,6 +98,5 @@ const mapDispatchToProps = (dispatch) => ({
   addNote,
   dispatch,
 })
-
 
 export default connect(mapStateToProps, mapDispatchToProps())(NoteEditor)

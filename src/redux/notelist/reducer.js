@@ -1,6 +1,6 @@
 import { ADD_NOTE } from './action'
 
-let fromMemory = " ";
+let fromMemory = ' '
 
 try {
   fromMemory = JSON.parse(localStorage.state).notes
