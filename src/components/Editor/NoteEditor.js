@@ -7,7 +7,6 @@ import {
   EditorInput,
 } from './NoteEditor.sc'
 import { addNote } from '../../redux/notelist/action'
-import { selectedNoteReducer as selectedNote } from '../../redux/selectedNote/reducer'
 
 
 class NoteEditor extends React.Component {
@@ -17,25 +16,19 @@ class NoteEditor extends React.Component {
       noteTitle: '',
       noteText: '',
       id: null,
+      selectedNote: {},
     }
-    console.log('editor props', this.props.selectedNote)
     this.handleTextChange = this.handleTextChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.saveNote = this.saveNote.bind(this)
   }
 
   handleTextChange(event) {
-    //let textValue = event.target.value
     this.setState({ noteText: event.target.value })
-    //use spread operator
-    // this.setState(state => ({note: Object.assign({}, state.note, {noteText: textValue})}));
   }
 
   handleInputChange(event) {
-    // let inputValue = event.target.value
     this.setState({ noteTitle: event.target.value })
-    //use spread operator
-    //this.setState(state => ({note: Object.assign({}, state.note, {noteTitle: inputValue})}));
   }
 
   saveNote() {
@@ -57,12 +50,20 @@ class NoteEditor extends React.Component {
         <EditorForm>
           <EditorInput
             placeholder="Note title..."
-            value={this.state.noteTitle ? this.state.noteTitle : ''}
+            value={
+              this.props.selectedNote.noteTitle
+                ? this.props.selectedNote.noteTitle
+                : this.state.noteTitle
+            }
             onChange={this.handleInputChange}
           />
           <TextArea
             onChange={this.handleTextChange}
-            value={this.state.noteText}
+            value={
+              this.props.selectedNote.noteText
+                ? this.props.selectedNote.noteText
+                : this.state.noteText
+            }
           />
         </EditorForm>
         <button onClick={this.saveNote}>SAVE</button>
