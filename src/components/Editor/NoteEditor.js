@@ -6,8 +6,9 @@ import {
   EditorForm,
   EditorInput,
   EditorHeader,
-  EditorButton
+  EditorButton,
 } from './NoteEditor.sc'
+import Button from '../Button/index.jsx'
 import { addNote } from '../../redux/notelist/action'
 
 class NoteEditor extends React.Component {
@@ -64,8 +65,10 @@ class NoteEditor extends React.Component {
       <EditorWrapper>
         <EditorHeader>
           NOTAL
-          <EditorButton onClick={this.saveNote}>SAVE</EditorButton>
-          <button onClick={this.saveNote}>DELETE</button>
+          <Button onClick={this.saveNote}>SAVE</Button>
+          <Button onClick={this.saveNote} danger>
+            DELETE
+          </Button>
         </EditorHeader>
         <EditorForm>
           <EditorInput
@@ -94,7 +97,7 @@ class NoteEditor extends React.Component {
 const mapStateToProps = ({ selectedNote }) => {
   return { selectedNote }
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   addNote,
   dispatch,
 })
