@@ -13,5 +13,6 @@ export default styled(Button)`
   border: 1px solid ${props => props.danger ? "red" : "#ccc"};
   background: ${props => props.danger ? "red" : "#fff"};
   color: ${props => props.danger ? "#fff" : "#000"};
-  border-radius: 5px
+  border-radius: 5px;
+  outline: none;
 `
