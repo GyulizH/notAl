@@ -36,7 +36,7 @@ class NoteList extends React.Component {
   }
 
   render() {
-    console.log(this.state.selectedNote, 'state')
+    console.log(this.props.notes, "the note list")
     return (
       <NoteListWrapper>
         <NoteListHeader>NOTE LIST</NoteListHeader>

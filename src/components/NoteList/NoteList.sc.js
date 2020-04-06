@@ -1,8 +1,5 @@
 import styled from 'styled-components'
 
-const theme = {
-  fontType: " 'Helvetica', sans-serif",
-}
 export const NoteListHeader = styled.div`
   flex-shrink: 0;
   font-size: 30px;
@@ -22,6 +19,10 @@ export const NoteListElement = styled.li`
   list-style-type: none;
   background-color: ${({ theme, isSelected }) => isSelected ? theme.selected : theme.unselected};
   font-family: Helvetica, sans-serif;
+  padding: 12px 2px 12px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #B8B3B1;
+  
 `
 NoteListElement.defaultProps = {
   theme: {
