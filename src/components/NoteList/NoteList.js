@@ -25,7 +25,13 @@ class NoteList extends React.Component {
     })
   }
   render() {
-    return <div>{this.renderList()}</div>
+    console.log(this.props.notes, "the note list")
+    return (
+      <NoteListWrapper>
+        <NoteListHeader>NOTE LIST</NoteListHeader>
+        {this.renderList()}
+      </NoteListWrapper>
+    )
   }
 }
 
