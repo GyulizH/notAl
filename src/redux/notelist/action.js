@@ -9,8 +9,8 @@ export const addNote = (newNote, action) => {
 }
 
 export const deleteNote = (index) => {
-  return{
+  return {
     type: DELETE_NOTE,
-    payload: index
+    payload: index,
   }
 }
