@@ -17,12 +17,12 @@ export const NoteListWrapper = styled.div`
 
 export const NoteListElement = styled.li`
   list-style-type: none;
-  background-color: ${({ theme, isSelected }) => isSelected ? theme.selected : theme.unselected};
+  background-color: ${({ theme, isSelected }) =>
+    isSelected ? theme.selected : theme.unselected};
   font-family: Helvetica, sans-serif;
   padding: 12px 2px 12px;
   margin-bottom: 10px;
-  border-bottom: 1px solid #B8B3B1;
-  
+  border-bottom: 1px solid #b8b3b1;
 `
 NoteListElement.defaultProps = {
   theme: {

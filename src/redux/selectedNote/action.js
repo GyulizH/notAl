@@ -7,4 +7,3 @@ export const selectNote = (selectedNote, action) => {
     payload: selectedNote,
   }
 }
-

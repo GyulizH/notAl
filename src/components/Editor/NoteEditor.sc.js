@@ -32,13 +32,13 @@ export const EditorForm = styled.form`
 // the parent element mut have position:relative
 // for the button to align relatively
 export const EditorButton = styled.button`
-     position:absolute;
-     top:0;
-     right:0;
-     border: 1px solid #ddd;
-     padding: 10px;
-     font-size: 14px;
-     border-radius: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
 `
 export const EditorInput = styled.input`
   outline: none;
