@@ -5,7 +5,10 @@ import {
   TextArea,
   EditorForm,
   EditorInput,
+  EditorHeader,
+  EditorButton,
 } from './NoteEditor.sc'
+import Button from '../Button/index.jsx'
 import { addNote } from '../../redux/notelist/action'
 
 class NoteEditor extends React.Component {
@@ -42,10 +45,31 @@ class NoteEditor extends React.Component {
     this.setState({ id: null })
   }
 
+  enterPressed(event) {
+    let note = {
+      noteTitle: this.state.noteTitle,
+      noteText: this.state.noteText,
+      id: Date.now(),
+    }
+    let code = event.keyCode || event.which
+    if (code === 13 && note.noteText !== '') {
+      this.props.addNote(note)
+      this.setState({ noteText: '' })
+      this.setState({ noteTitle: '' })
+      this.setState({ id: null })
+    }
+  }
+
   render() {
     return (
       <EditorWrapper>
-        <h5>NOTAL</h5>
+        <EditorHeader>
+          NOTAL
+          <Button onClick={this.saveNote}>SAVE</Button>
+          <Button onClick={this.saveNote} danger>
+            DELETE
+          </Button>
+        </EditorHeader>
         <EditorForm>
           <EditorInput
             placeholder="Note title..."
@@ -63,9 +87,9 @@ class NoteEditor extends React.Component {
                 ? this.props.selectedNote.noteText
                 : this.state.noteText
             }
+            onKeyPress={this.enterPressed.bind(this)}
           />
         </EditorForm>
-        <button onClick={this.saveNote}>SAVE</button>
       </EditorWrapper>
     )
   }
@@ -73,7 +97,7 @@ class NoteEditor extends React.Component {
 const mapStateToProps = ({ selectedNote }) => {
   return { selectedNote }
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   addNote,
   dispatch,
 })

@@ -2,6 +2,7 @@ import React from 'react'
 import EmptyEditor from './Editor/NoteEditor'
 import NoteList from './NoteList/NoteList'
 
+//flexDirection: 'column',
 class App extends React.Component {
   render() {
     return (
@@ -10,14 +11,13 @@ class App extends React.Component {
           width: '100%',
           height: '1000px',
           display: 'flex',
-          flexDirection: 'column',
+          margin: '0px',
         }}
       >
-        <h1>My React App</h1>
-        <EmptyEditor />
         <div>
           <NoteList />
         </div>
+        <EmptyEditor />
       </div>
     )
   }
