@@ -9,7 +9,7 @@ export const NoteListHeader = styled.div`
 
 export const NoteListWrapper = styled.div`
   height: 100%;
-  width: 300px;
+  width: 28%;
   display: flex;
   flex-direction: column;
   background-color: #e5e5e5;

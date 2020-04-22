@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { selectNote } from '../../redux/selectedNote/action'
+import { NoteListHeader, NoteListWrapper,NoteListElement} from './NoteList.sc'
 import { selectedNoteReducer as selectedNote } from '../../redux/selectedNote/reducer'
 
 class NoteList extends React.Component {
@@ -18,9 +19,9 @@ class NoteList extends React.Component {
   renderList() {
     return this.props.notes.map((object, index) => {
       return (
-        <li key={object.id} onClick={() => this.selectNote(object.id)}>
+        <NoteListElement key={object.id} onClick={() => this.selectNote(object.id)}>
           {object.noteTitle}
-        </li>
+        </NoteListElement>
       )
     })
   }

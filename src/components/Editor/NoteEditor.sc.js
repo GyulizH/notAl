@@ -18,6 +18,15 @@ export const EditorForm = styled.form`
 `
 // the parent element mut have position:relative
 // for the button to align relatively
+
+export const EditorHeader = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 40px;
+  padding: 2px 2px 2px 2px;
+`
 export const EditorButton = styled.button`
   position: absolute;
   top: 0;
