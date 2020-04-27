@@ -1,4 +1,4 @@
-import { SELECT_NOTE } from './action'
+import { SELECT_NOTE, UPDATE_SELECTED_NOTE } from './action'
 
 const initialState = {
   selectedNote: {},
@@ -8,6 +8,12 @@ export const selectedNoteReducer = (state = initialState, action) => {
     return {
       ...state,
       ...action.payload,
+    }
+  }
+  if(action.type === UPDATE_SELECTED_NOTE){
+    return {
+      ...state,
+      selectedNote: action.payload
     }
   }
   return state

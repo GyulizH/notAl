@@ -6,11 +6,11 @@ import {
   EditorForm,
   EditorInput,
   EditorHeader,
-  EditorButton,
 } from './NoteEditor.sc'
 import Button from '../Button'
 import { addNote } from '../../redux/notelist/action'
 import { deleteNote } from '../../redux/notelist/action'
+import { updateSelectedNote } from '../../redux/selectedNote/action'
 
 class NoteEditor extends React.Component {
   constructor(props) {
@@ -55,12 +55,10 @@ class NoteEditor extends React.Component {
   }
 
   addNewNote() {
-    console.log('add note')
-    //this.set neden calismiyor
+    //this.set neden calismiyor state degisikligi oldugu icin otomatik re-render yapmasi gerekmiyor mu?
     this.setState({ noteText: '' })
     this.setState({ noteTitle: '' })
     this.setState({ id: Date.now() })
-    console.log(this.state.noteText)
   }
 
   saveNote() {
@@ -68,7 +66,7 @@ class NoteEditor extends React.Component {
     let note = {
       noteTitle: this.state.noteTitle,
       noteText: this.state.noteText,
-      id: Date.now(),
+      id: this.props.selectedNote.id ? this.props.selectedNote.id : Date.now(),
     }
     if (
       note.id !== this.props.selectedNote.id &&
@@ -79,8 +77,9 @@ class NoteEditor extends React.Component {
       this.setState({ noteText: '' })
       this.setState({ noteTitle: '' })
       this.setState({ id: null })
+    }else if(note.id === this.props.selectedNote.id){
+     this.props.updateSelectedNote(note)
     }
-    //write an update action to redux
   }
 
   enterPressed(event) {
@@ -90,6 +89,7 @@ class NoteEditor extends React.Component {
       id: Date.now(),
     }
     let code = event.keyCode || event.which
+    //title varken ve text yokken enter a basinca sayfayi yeniliyor??
     if (code === 13 && note.noteText !== '' && note.noteTitle !== '') {
       this.props.addNote(note)
       this.setState({ noteText: '' })
@@ -118,25 +118,24 @@ class NoteEditor extends React.Component {
     return (
       <EditorWrapper>
         <EditorHeader>
-          NOTAL
+          <EditorForm>
+            <EditorInput
+              placeholder="Note title..."
+              value={this.state.noteTitle ? this.state.noteTitle : ''}
+              onChange={this.handleInputChange}
+            />
+          </EditorForm>
           <Button onClick={this.saveNote}>SAVE</Button>
-          <Button onClick={this.deleteNote} danger>
+          <Button onClick={this.deleteNote} appliedStyle="danger" danger>
             DELETE
           </Button>
           <Button onClick={this.addNewNote}> ADD </Button>
         </EditorHeader>
-        <EditorForm>
-          <EditorInput
-            placeholder="Note title..."
-            value={this.state.noteTitle ? this.state.noteTitle : ''}
-            onChange={this.handleInputChange}
-          />
-          <TextArea
-            onChange={(e) => this.handleTextChange(e.target.value)}
-            value={this.state.noteText ? this.state.noteText : ''}
-            onKeyPress={this.enterPressed.bind(this)}
-          />
-        </EditorForm>
+        <TextArea
+          onChange={(e) => this.handleTextChange(e.target.value)}
+          value={this.state.noteText ? this.state.noteText : ''}
+          onKeyPress={this.enterPressed.bind(this)}
+        />
       </EditorWrapper>
     )
   }
@@ -148,6 +147,7 @@ const mapStateToProps = ({ selectedNote, notes }) => {
 const mapDispatchToProps = (dispatch) => ({
   addNote,
   deleteNote,
+  updateSelectedNote,
   dispatch,
 })
 

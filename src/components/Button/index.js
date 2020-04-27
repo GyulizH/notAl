@@ -1,10 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ButtonWrapper } from './Button.sc'
+import Components, { BUTTON_STYLE, ButtonWrapper } from './Button.sc'
 
 const Button = (props) => {
-  const { children, ...restOfProps } = props
-  return <ButtonWrapper {...restOfProps}> {children} </ButtonWrapper>
+  Button.defaultProps = {
+    appliedStyle: BUTTON_STYLE.DEFAULT,
+  }
+  const { children, appliedStyle, ...restOfProps } = props
+  // const {ButtonWrapper} = Components[appliedStyle]
+  return (
+    <ButtonWrapper appliedStyle={appliedStyle} {...restOfProps}>
+      {' '}
+      {children}{' '}
+    </ButtonWrapper>
+  )
 }
 
 // export default styled(Button)`

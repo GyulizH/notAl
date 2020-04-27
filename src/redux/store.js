@@ -8,7 +8,6 @@ import LocalStorage from '../Utils/LocalStorage'
 const createStoreWithMiddleware = applyMiddleware(LocalStorage)(createStore)
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)))
-console.log('the state', store.getState())
 store.subscribe(() => {
   saveState({
     notes: store.getState().notes,
@@ -18,5 +17,4 @@ store.subscribe(() => {
   })
 })
 
-console.log('the state', store.getState())
 export default store

@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+export const BUTTON_STYLE = {
+  DANGER: 'danger',
+  DEFAULT: 'default',
+}
 export const ButtonWrapper = styled.button`
   display: inline-block;
   padding: 10px;
@@ -9,4 +13,19 @@ export const ButtonWrapper = styled.button`
   color: ${(props) => (props.danger ? '#fff' : '#000')};
   border-radius: 5px;
   outline: none;
+  width: 5rem;
+  cursor:pointer;
+  &:hover {
+    background-color: #757474;
+  }
 `
+
+export const ButtonDanger = styled(ButtonWrapper)`
+  background: red;
+`
+
+const Components = {
+  [BUTTON_STYLE.DANGER]: { ButtonWrapper: ButtonDanger },
+}
+
+export default Components

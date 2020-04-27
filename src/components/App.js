@@ -13,7 +13,7 @@ class App extends React.Component {
           flexDirection: 'row',
         }}
       >
-          <NoteList />
+        <NoteList />
         <NoteEditor />
       </div>
     )
