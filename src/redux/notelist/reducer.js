@@ -1,5 +1,4 @@
-import { ADD_NOTE } from './action'
-import { DELETE_NOTE } from './action'
+import { ADD_NOTE, DELETE_NOTE, UPDATE_NOTE } from './action'
 
 let fromMemory = ''
 try {
@@ -17,6 +16,10 @@ export const noteReducers = (state = initialState, action) => {
   if (action.type === DELETE_NOTE) {
     let newState = state.filter((item, index) => index !== action.payload)
     return [...newState]
+  }
+  if (action.type === UPDATE_NOTE) {
+    console.log('Updating the note')
+    return action.payload
   }
   return state
 }
