@@ -9,7 +9,7 @@ export const selectNote = (selectedNote, action) => {
 }
 
 //duzgun calismiyor
-export const updateSelectedNote = (updatedNote, action) => {
+export const updateSelectedNote = (updatedNote) => (dispatch, getState) => {
   return {
     type: UPDATE_SELECTED_NOTE,
     payload:updatedNote

@@ -10,7 +10,7 @@ import {
 import Button from '../Button'
 import { addNote } from '../../redux/notelist/action'
 import { deleteNote } from '../../redux/notelist/action'
-import { updateSelectedNote } from '../../redux/selectedNote/action'
+import { updateNote } from '../../redux/notelist/action'
 
 class NoteEditor extends React.Component {
   constructor(props) {
@@ -68,6 +68,7 @@ class NoteEditor extends React.Component {
       noteText: this.state.noteText,
       id: this.props.selectedNote.id ? this.props.selectedNote.id : Date.now(),
     }
+
     if (
       note.id !== this.props.selectedNote.id &&
       note.noteTitle !== '' &&
@@ -77,8 +78,10 @@ class NoteEditor extends React.Component {
       this.setState({ noteText: '' })
       this.setState({ noteTitle: '' })
       this.setState({ id: null })
-    }else if(note.id === this.props.selectedNote.id){
-     this.props.updateSelectedNote(note)
+    }
+    // we are editing a previously saved note
+    else if(note.id === this.props.selectedNote.id){
+     this.props.updateNote(note)
     }
   }
 
@@ -147,7 +150,7 @@ const mapStateToProps = ({ selectedNote, notes }) => {
 const mapDispatchToProps = (dispatch) => ({
   addNote,
   deleteNote,
-  updateSelectedNote,
+  updateNote,
   dispatch,
 })
 
