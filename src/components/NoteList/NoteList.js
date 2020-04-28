@@ -1,31 +1,57 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { selectNote } from '../../redux/selectedNote/action'
+import {
+  NoteListHeader,
+  NoteListWrapper,
+  NoteListElement,
+  NoteListStar,
+} from './NoteList.sc'
 import { selectedNoteReducer as selectedNote } from '../../redux/selectedNote/reducer'
 
 class NoteList extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      selectedNote: {},
+      isSelected: false,
+    }
     this.selectNote = this.selectNote.bind(this)
   }
-  componentDidMount() {}
+
+  // shouldComponentUpdate(nextProps, nextState, nextContext) {
+  // }
 
   selectNote(id) {
     const selectedNote = this.props.notes.find((note) => note.id === id)
     this.props.selectNote(selectedNote)
+
+    this.setState({ selectedNote: selectedNote })
     return selectedNote
   }
   renderList() {
     return this.props.notes.map((object, index) => {
       return (
-        <li key={object.id} onClick={() => this.selectNote(object.id)}>
+        <NoteListElement
+          isSelected={this.state.selectedNote.id === object.id}
+          key={object.id}
+          onClick={() => this.selectNote(object.id)}
+        >
+          {this.state.selectedNote.id === object.id && (
+            <NoteListStar size="20" />
+          )}
           {object.noteTitle}
-        </li>
+        </NoteListElement>
       )
     })
   }
   render() {
-    return <div>{this.renderList()}</div>
+    return (
+      <NoteListWrapper>
+        <NoteListHeader>NOTE LIST</NoteListHeader>
+        <div>{this.renderList()}</div>
+      </NoteListWrapper>
+    )
   }
 }
 
