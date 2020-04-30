@@ -7,11 +7,11 @@ const Button = (props) => {
     appliedStyle: BUTTON_STYLE.DEFAULT,
   }
   const { children, appliedStyle, ...restOfProps } = props
-  // const {ButtonWrapper} = Components[appliedStyle]
+  console.log(Components[appliedStyle],"buttoooon")
+  const {ButtonWrapper} = Components[appliedStyle]
   return (
     <ButtonWrapper appliedStyle={appliedStyle} {...restOfProps}>
-      {' '}
-      {children}{' '}
+      {children}
     </ButtonWrapper>
   )
 }

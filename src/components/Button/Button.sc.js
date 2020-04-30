@@ -21,11 +21,13 @@ export const ButtonWrapper = styled.button`
 `
 
 export const ButtonDanger = styled(ButtonWrapper)`
-  background: red;
+  &&&{
+  background:green
 `
 
 const Components = {
   [BUTTON_STYLE.DANGER]: { ButtonWrapper: ButtonDanger },
+  [BUTTON_STYLE.DEFAULT]: { ButtonWrapper: ButtonWrapper }
 }
 
 export default Components

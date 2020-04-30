@@ -11,6 +11,7 @@ import Button from '../Button'
 import { addNote } from '../../redux/notelist/action'
 import { deleteNote } from '../../redux/notelist/action'
 import { updateNote } from '../../redux/notelist/action'
+import { updateSelectedNote} from "../../redux/selectedNote/action";
 
 class NoteEditor extends React.Component {
   constructor(props) {
@@ -28,20 +29,24 @@ class NoteEditor extends React.Component {
     this.addNewNote = this.addNewNote.bind(this)
   }
 
-  componentDidMount() {
-    this.setState({
-      noteTitle: this.props.selectedNote.noteTitle,
-      noteText: this.props.selectedNote.noteText,
-      id: this.props.selectedNote.id,
-    })
-  }
+  //amacim sayfayi yeniledigimde kaldigim yerden sectigom nottan devam etmesi idi ama hicbir ise yaramiyor
+  // componentDidMount() {
+  //   this.setState({
+  //     noteTitle: this.props.selectedNote.noteTitle,
+  //     noteText: this.props.selectedNote.noteText,
+  //     id: this.props.selectedNote.id,
+  //   })
+  //   console.log(this.state.id,"componentdidmount")
+  // }
 
   componentDidUpdate() {
+    console.log(this.props.selectedNote)
     if (this.props.selectedNote.id !== this.state.id) {
       this.setState({
         noteTitle: this.props.selectedNote.noteTitle,
         noteText: this.props.selectedNote.noteText,
         id: this.props.selectedNote.id,
+        isSelected:false
       })
     }
   }
@@ -55,31 +60,34 @@ class NoteEditor extends React.Component {
   }
 
   addNewNote() {
-    //this.set neden calismiyor state degisikligi oldugu icin otomatik re-render yapmasi gerekmiyor mu?
-    this.setState({ noteText: '' })
-    this.setState({ noteTitle: '' })
-    this.setState({ id: Date.now() })
+    this.props.selectedNote.noteText = ''
+    this.props.selectedNote.noteTitle = ''
+    this.props.selectedNote.id = Date.now()
+    this.props.updateSelectedNote(this.props.selectedNote)
+    // this.setState({ noteText: '' })
+    // this.setState({ noteTitle: '' })
+    // this.setState({ id: Date.now() })
   }
 
   saveNote() {
-    //note text ve title girilmemis olsa bile id ile bos not yaratiyor ??
     let note = {
       noteTitle: this.state.noteTitle,
       noteText: this.state.noteText,
       id: this.props.selectedNote.id ? this.props.selectedNote.id : Date.now(),
+      isSelected:false
     }
-
     if (
-      note.id !== this.props.selectedNote.id &&
-      note.noteTitle !== '' &&
-      note.noteText !== ''
+        note.id !== this.props.selectedNote.id &&
+        note.noteTitle !== '' &&
+        note.noteText !== ''
     ) {
       this.props.addNote(note)
-      this.setState({ noteText: '' })
-      this.setState({ noteTitle: '' })
-      this.setState({ id: null })
+      this.setState({
+        noteTitle: '',
+        noteText: '',
+        id: null,
+      })
     }
-    // we are editing a previously saved note
     else if(note.id === this.props.selectedNote.id){
      this.props.updateNote(note)
     }
@@ -95,9 +103,11 @@ class NoteEditor extends React.Component {
     //title varken ve text yokken enter a basinca sayfayi yeniliyor??
     if (code === 13 && note.noteText !== '' && note.noteTitle !== '') {
       this.props.addNote(note)
-      this.setState({ noteText: '' })
-      this.setState({ noteTitle: '' })
-      this.setState({ id: null })
+      this.setState({
+        noteTitle: '',
+        noteText: '',
+        id: null
+      })
     }
   }
 
@@ -108,12 +118,13 @@ class NoteEditor extends React.Component {
     )
     if (selectedNoteIndex !== -1) {
       this.props.deleteNote(selectedNoteIndex)
-      //bu iki satiri yazmazsam neden olmuyor ben bunu zaten sistemden siliyorum
       this.props.selectedNote.noteTitle = ''
       this.props.selectedNote.noteText = ' '
-      this.setState({ noteText: '' })
-      this.setState({ noteTitle: '' })
-      this.setState({ id: null })
+      this.setState({
+        noteTitle: '',
+        noteText: '',
+        id: null
+      })
     }
   }
 
@@ -128,7 +139,7 @@ class NoteEditor extends React.Component {
               onChange={this.handleInputChange}
             />
           </EditorForm>
-          <Button onClick={this.saveNote}>SAVE</Button>
+          <Button onClick={this.saveNote} appliedStyle="default">SAVE</Button>
           <Button onClick={this.deleteNote} appliedStyle="danger" danger>
             DELETE
           </Button>
@@ -151,6 +162,7 @@ const mapDispatchToProps = (dispatch) => ({
   addNote,
   deleteNote,
   updateNote,
+  updateSelectedNote,
   dispatch,
 })
 
