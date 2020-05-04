@@ -11,7 +11,7 @@ import Button from '../Button'
 import { addNote } from '../../redux/notelist/action'
 import { deleteNote } from '../../redux/notelist/action'
 import { updateNote } from '../../redux/notelist/action'
-import { updateSelectedNote} from "../../redux/selectedNote/action";
+import { updateSelectedNote } from '../../redux/selectedNote/action'
 
 class NoteEditor extends React.Component {
   constructor(props) {
@@ -28,29 +28,6 @@ class NoteEditor extends React.Component {
     this.deleteNote = this.deleteNote.bind(this)
     this.addNewNote = this.addNewNote.bind(this)
   }
-
-  //amacim sayfayi yeniledigimde kaldigim yerden sectigom nottan devam etmesi idi ama hicbir ise yaramiyor
-  // componentDidMount() {
-  //   console.log(selectedNote,"componentdidupdate")
-  // //   this.setState({
-  // //     noteTitle: this.props.selectedNote.noteTitle,
-  // //     noteText: this.props.selectedNote.noteText,
-  // //     id: this.props.selectedNote.id,
-  // //   })
-  // //   console.log(this.state.id,"componentdidmount")
-  // }
-
-  componentDidUpdate() {
-    console.log(this.props.selectedNote, "componentdidupdated")
-    if( this.props.selectedNote !== null && this.props.selectedNote.id !== this.state.id){
-      this.setState({
-            noteTitle: this.props.selectedNote.noteTitle,
-            noteText: this.props.selectedNote.noteText,
-            id: this.props.selectedNote.id,
-          })
-    }
-  }
-
   handleTextChange(txt) {
     this.setState({ noteText: txt })
   }
@@ -60,13 +37,12 @@ class NoteEditor extends React.Component {
   }
 
   addNewNote() {
-    this.props.selectedNote.noteText = ''
-    this.props.selectedNote.noteTitle = ''
-    this.props.selectedNote.id = Date.now()
-    this.props.updateSelectedNote(this.props.selectedNote)
-    // this.setState({ noteText: '' })
-    // this.setState({ noteTitle: '' })
-    // this.setState({ id: Date.now() })
+    const newNote = {
+      noteText: '',
+      noteTitle: '',
+      id: Date.now(),
+    }
+    this.setState({ ...newNote })
   }
 
   saveNote() {
@@ -74,12 +50,14 @@ class NoteEditor extends React.Component {
       noteTitle: this.state.noteTitle,
       noteText: this.state.noteText,
       id: this.props.selectedNote.id ? this.props.selectedNote.id : Date.now(),
-      isSelected: this.props.selectedNote.isSelected ? this.props.selectedNote.isSelected : false
+      isSelected: this.props.selectedNote.isSelected
+        ? this.props.selectedNote.isSelected
+        : false,
     }
     if (
-        note.id !== this.props.selectedNote.id &&
-        note.noteTitle !== '' &&
-        note.noteText !== ''
+      note.id !== this.props.selectedNote.id &&
+      note.noteTitle !== '' &&
+      note.noteText !== ''
     ) {
       this.props.addNote(note)
       this.setState({
@@ -87,9 +65,8 @@ class NoteEditor extends React.Component {
         noteText: '',
         id: null,
       })
-    }
-    else if(note.id === this.props.selectedNote.id){
-     this.props.updateNote(note)
+    } else if (note.id === this.props.selectedNote.id) {
+      this.props.updateNote(note)
     }
   }
 
@@ -106,7 +83,7 @@ class NoteEditor extends React.Component {
       this.setState({
         noteTitle: '',
         noteText: '',
-        id: null
+        id: null,
       })
     }
   }
@@ -114,7 +91,7 @@ class NoteEditor extends React.Component {
   deleteNote() {
     let notesArr = [...this.props.notes]
     let selectedNoteIndex = notesArr.findIndex(
-      (note) => note.id === this.props.selectedNote.id
+      note => note.id === this.props.selectedNote.id
     )
     if (selectedNoteIndex !== -1) {
       this.props.deleteNote(selectedNoteIndex)
@@ -123,31 +100,36 @@ class NoteEditor extends React.Component {
       this.setState({
         noteTitle: '',
         noteText: '',
-        id: null
+        id: null,
       })
     }
   }
 
   render() {
+    const { selectedNote } = this.props
+    const { noteTitle, noteText } = this.state
+
     return (
       <EditorWrapper>
         <EditorHeader>
           <EditorForm>
             <EditorInput
               placeholder="Note title..."
-              value={this.state.noteTitle ? this.state.noteTitle : ''}
+              value={selectedNote ? selectedNote.noteTitle : noteTitle}
               onChange={this.handleInputChange}
             />
           </EditorForm>
-          <Button onClick={this.saveNote} appliedStyle="default">SAVE</Button>
+          <Button onClick={this.saveNote} appliedStyle="default">
+            SAVE
+          </Button>
           <Button onClick={this.deleteNote} appliedStyle="danger" danger>
             DELETE
           </Button>
           <Button onClick={this.addNewNote}> ADD </Button>
         </EditorHeader>
         <TextArea
-          onChange={(e) => this.handleTextChange(e.target.value)}
-          value={this.state.noteText ? this.state.noteText : ''}
+          onChange={e => this.handleTextChange(e.target.value)}
+          value={selectedNote ? selectedNote.noteText : noteText}
           onKeyPress={this.enterPressed.bind(this)}
         />
       </EditorWrapper>
@@ -155,13 +137,13 @@ class NoteEditor extends React.Component {
   }
 }
 
-const mapStateToProps = ({  notes }) => {
+const mapStateToProps = ({ notes }) => {
   return {
-    selectedNote: notes.find((n) => n.isSelected) || null,
-    notes
+    selectedNote: notes.find(n => n.isSelected) || null,
+    notes,
   }
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   addNote,
   deleteNote,
   updateNote,

@@ -1,7 +1,7 @@
 import { ADD_NOTE } from '../redux/notelist/action'
 
 export default function ({ dispatch }) {
-  return (next) => (action) => {
+  return next => action => {
     if (action.type === ADD_NOTE) {
       console.log(action.payload)
       localStorage.setItem('note', JSON.stringify(action.payload))
@@ -24,9 +24,14 @@ export const loadState = () => {
   }
 }
 
-export const saveState = (state) => {
+export const saveState = state => {
   try {
-    const serializedState = JSON.stringify(state)
+    const allUnselected = state.notes.map(note => ({
+      ...note,
+      isSelected: false,
+    }))
+
+    const serializedState = JSON.stringify(allUnselected)
     localStorage.setItem('state', serializedState)
   } catch (err) {
     // die
