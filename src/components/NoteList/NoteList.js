@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-//import { selectNote } from '../../redux/selectedNote/action'
-import {selectNote} from '../../redux/notelist/action'
+import {selectNote, unselectNote } from '../../redux/notelist/action'
 import {
   NoteListHeader,
   NoteListWrapper,
@@ -18,12 +17,14 @@ class NoteList extends React.Component {
     this.selectNote = this.selectNote.bind(this)
   }
 
-
   selectNote(id) {
     const selectedNote = this.props.notes.find((note) => note.id === id)
-
     this.props.selectNote(selectedNote)
     this.setState({ selectedNote: selectedNote })
+    console.log(selectedNote,"selectNote")
+    if(selectedNote.isSelected === true){
+      this.props.unselectNote(selectedNote)
+    }
     return selectedNote
   }
   renderList() {
@@ -57,6 +58,7 @@ const mapStateToProps = ({ notes }) => {
 }
 const mapDispatchToProps = (dispatch) => ({
   selectNote,
+  unselectNote,
   dispatch,
 })
 

@@ -2,6 +2,7 @@ export const ADD_NOTE = 'ADD NOTE'
 export const DELETE_NOTE = 'DELETE NOTE'
 export const UPDATE_NOTE = 'UPDATE NOTE'
 export const SELECT_NOTE = 'SELECT NOTE'
+export const UNSELECT_NOTE = 'UNSELECT NOTE'
 
 export const updateNote = (newNote, action) => (dispatch, getState) => {
   const { notes } = getState()
@@ -31,17 +32,23 @@ export const deleteNote = index => {
 }
 
 export const selectNote =(selectedNote, action) => (dispatch,getState) => {
-  const { notes } = getState()
+  let {notes} = getState()
+  notes = notes.map((note) => ({...note, isSelected: selectedNote.id === note.id}))
 
-  const theSelectedNote = notes.find((note) => note.id === selectedNote.id)
-  const notSelectedNotes = notes.filter(note => note.id !== selectedNote.id)
-      .map(function (x) {
-           x.isSelected = false
-        return x
-      })
-  theSelectedNote.isSelected = true
-  return {
+  dispatch({
     type: SELECT_NOTE,
-    payload:theSelectedNote,
-  }
+    payload: notes,
+  })
 }
+export const unselectNote = (noteToUnselect, action) => (dispatch, getState) => {
+  let { notes } = getState()
+  notes = notes.map((note) => ({...note, isSelected: !(noteToUnselect.id === note.id) }))
+  console.log(notes)
+  dispatch( {
+    type: UNSELECT_NOTE,
+    payload:notes,
+  })
+}
+
+
+

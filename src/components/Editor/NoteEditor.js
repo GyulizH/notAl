@@ -31,23 +31,23 @@ class NoteEditor extends React.Component {
 
   //amacim sayfayi yeniledigimde kaldigim yerden sectigom nottan devam etmesi idi ama hicbir ise yaramiyor
   // componentDidMount() {
-  //   this.setState({
-  //     noteTitle: this.props.selectedNote.noteTitle,
-  //     noteText: this.props.selectedNote.noteText,
-  //     id: this.props.selectedNote.id,
-  //   })
-  //   console.log(this.state.id,"componentdidmount")
+  //   console.log(selectedNote,"componentdidupdate")
+  // //   this.setState({
+  // //     noteTitle: this.props.selectedNote.noteTitle,
+  // //     noteText: this.props.selectedNote.noteText,
+  // //     id: this.props.selectedNote.id,
+  // //   })
+  // //   console.log(this.state.id,"componentdidmount")
   // }
 
   componentDidUpdate() {
-    console.log(this.props.selectedNote)
-    if (this.props.selectedNote.id !== this.state.id) {
+    console.log(this.props.selectedNote, "componentdidupdated")
+    if( this.props.selectedNote !== null && this.props.selectedNote.id !== this.state.id){
       this.setState({
-        noteTitle: this.props.selectedNote.noteTitle,
-        noteText: this.props.selectedNote.noteText,
-        id: this.props.selectedNote.id,
-        isSelected:false
-      })
+            noteTitle: this.props.selectedNote.noteTitle,
+            noteText: this.props.selectedNote.noteText,
+            id: this.props.selectedNote.id,
+          })
     }
   }
 
@@ -74,7 +74,7 @@ class NoteEditor extends React.Component {
       noteTitle: this.state.noteTitle,
       noteText: this.state.noteText,
       id: this.props.selectedNote.id ? this.props.selectedNote.id : Date.now(),
-      isSelected:false
+      isSelected: this.props.selectedNote.isSelected ? this.props.selectedNote.isSelected : false
     }
     if (
         note.id !== this.props.selectedNote.id &&
@@ -155,8 +155,11 @@ class NoteEditor extends React.Component {
   }
 }
 
-const mapStateToProps = ({ selectedNote, notes }) => {
-  return { selectedNote, notes }
+const mapStateToProps = ({  notes }) => {
+  return {
+    selectedNote: notes.find((n) => n.isSelected) || null,
+    notes
+  }
 }
 const mapDispatchToProps = (dispatch) => ({
   addNote,

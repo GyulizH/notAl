@@ -1,4 +1,4 @@
-import { ADD_NOTE, DELETE_NOTE, UPDATE_NOTE, SELECT_NOTE } from './action'
+import {ADD_NOTE, DELETE_NOTE, UPDATE_NOTE, SELECT_NOTE, UNSELECT_NOTE} from './action'
 
 let fromMemory = ''
 try {
@@ -21,7 +21,10 @@ export const noteReducers = (state = initialState, action) => {
     return action.payload
   }
   if(action.type === SELECT_NOTE) {
-    console.log(action.payload,"SELECTEDNOTE")
+    return action.payload
+  }
+
+  if(action.type === UNSELECT_NOTE){
     return action.payload
   }
   return state
