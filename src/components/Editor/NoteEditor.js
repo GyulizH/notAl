@@ -46,26 +46,29 @@ class NoteEditor extends React.Component {
   }
 
   saveNote() {
+    console.log(this.state.selectedNote)
     let note = {
       noteTitle: this.state.noteTitle,
       noteText: this.state.noteText,
-      id: this.props.selectedNote.id ? this.props.selectedNote.id : Date.now(),
-      isSelected: this.props.selectedNote.isSelected
-        ? this.props.selectedNote.isSelected
+      id: this.state.selectedNote.id ? this.state.selectedNote.id : Date.now(),
+      isSelected: this.state.selectedNote.isSelected
+        ? this.state.selectedNote.isSelected
         : false,
     }
     if (
-      note.id !== this.props.selectedNote.id &&
+        this.state.selectedNote.id === undefined &&
+      note.id !== this.state.selectedNote.id &&
       note.noteTitle !== '' &&
       note.noteText !== ''
     ) {
+      console.log("hey")
       this.props.addNote(note)
       this.setState({
         noteTitle: '',
         noteText: '',
         id: null,
       })
-    } else if (note.id === this.props.selectedNote.id) {
+    } else if (note.id === this.state.selectedNote.id) {
       this.props.updateNote(note)
     }
   }
