@@ -3,6 +3,10 @@ import {ADD_NOTE, DELETE_NOTE, UPDATE_NOTE, SELECT_NOTE, UNSELECT_NOTE} from './
 let fromMemory = ''
 try {
   fromMemory = JSON.parse(localStorage.state).notes
+  fromMemory.forEach(function (v) {
+    delete v.isSelected
+  })
+
 } catch (err) {
   console.log('error')
 }
