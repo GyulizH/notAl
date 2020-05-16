@@ -10,10 +10,10 @@ export const selectedNoteReducer = (state = initialState, action) => {
       ...action.payload,
     }
   }
-  if(action.type === UPDATE_SELECTED_NOTE){
+  if (action.type === UPDATE_SELECTED_NOTE) {
     return {
       ...state,
-      selectedNote: action.payload
+      selectedNote: action.payload,
     }
   }
   return state

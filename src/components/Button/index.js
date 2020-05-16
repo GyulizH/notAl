@@ -7,7 +7,7 @@ const Button = (props) => {
     appliedStyle: BUTTON_STYLE.DEFAULT,
   }
   const { children, appliedStyle, ...restOfProps } = props
- // console.log(Components[appliedStyle],"buttoooon")
+  // console.log(Components[appliedStyle],"buttoooon")
   //const {ButtonWrapper} = Components[appliedStyle]
   return (
     <ButtonWrapper appliedStyle={appliedStyle} {...restOfProps}>

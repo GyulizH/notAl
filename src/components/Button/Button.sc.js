@@ -14,7 +14,7 @@ export const ButtonWrapper = styled.button`
   border-radius: 5px;
   outline: none;
   width: 5rem;
-  cursor:pointer;
+  cursor: pointer;
   &:hover {
     background-color: #757474;
   }
@@ -27,7 +27,7 @@ export const ButtonDanger = styled(ButtonWrapper)`
 
 const Components = {
   [BUTTON_STYLE.DANGER]: { ButtonWrapper: ButtonDanger },
-  [BUTTON_STYLE.DEFAULT]: { ButtonWrapper: ButtonWrapper }
+  [BUTTON_STYLE.DEFAULT]: { ButtonWrapper: ButtonWrapper },
 }
 
 export default Components

@@ -11,6 +11,6 @@ export const selectNote = (selectedNote) => {
 export const updateSelectedNote = (updatedNote) => {
   return {
     type: UPDATE_SELECTED_NOTE,
-    payload:updatedNote
+    payload: updatedNote,
   }
 }
