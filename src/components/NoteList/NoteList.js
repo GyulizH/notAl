@@ -6,6 +6,10 @@ import {
   NoteListWrapper,
   NoteListElement,
   NoteListStar,
+  SearchInput,
+  SearchIcon,
+  NoteListButton,
+  NoteListDots,
 } from './NoteList.sc'
 
 class NoteList extends React.Component {
@@ -13,8 +17,55 @@ class NoteList extends React.Component {
     super(props)
     this.state = {
       selectedNote: {},
+      filteredNotes: []
     }
     this.selectNote = this.selectNote.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  componentDidMount() {
+    this.setState({
+      filteredNotes: this.props.notes
+    })
+  }
+
+
+  static getDerivedStateFromProps(nextProps,prevState){
+    if(nextProps.notes !== prevState.filteredNotes ){
+      console.log("GETDERIVED")
+      return {
+        filteredNotes: nextProps.notes
+      }
+    }
+    return null
+  }
+  //will be replaced with getDerivedStateFromProps
+  // componentWillReceiveProps(nextProps) {
+  //     this.setState({
+  //       filteredNotes: nextProps.notes
+  //     })
+  // }
+
+  handleChange(e){
+    let currentList = []
+    let newList = []
+
+    if(e.target.value !== ""){
+      currentList = this.props.notes
+      newList = currentList.filter(item => {
+        const lc = item.noteTitle.toLowerCase()
+        const filter = e.target.value.toLowerCase()
+        return lc.includes(filter)
+      })
+      console.log(newList,"newlist")
+    }else{
+      newList = this.props.notes
+    }
+
+    this.setState({
+      filteredNotes:newList
+    })
+    console.log(this.state.filteredNotes, "inside function")
   }
 
   selectNote(id) {
@@ -24,7 +75,7 @@ class NoteList extends React.Component {
     return selectedNote
   }
   renderList() {
-    return this.props.notes.map((object, index) => {
+    return this.state.filteredNotes.map((object, index) => {
       return (
         <NoteListElement
           isSelected={object.isSelected}
@@ -33,14 +84,24 @@ class NoteList extends React.Component {
         >
           {object.isSelected && <NoteListStar size="20" />}
           {object.noteTitle}
+          <NoteListButton onClick={() => {console.log("button")}}>
+            <NoteListDots size="20"/>
+          </NoteListButton>
         </NoteListElement>
       )
     })
   }
   render() {
+    console.log(this.state.filteredNotes,"filterednotes")
     return (
       <NoteListWrapper>
-        <NoteListHeader>NOTE LIST</NoteListHeader>
+        <NoteListHeader>
+          <SearchInput type="text"
+                 className="input"
+                 placeholder="Search Notes..."
+                 onChange={this.handleChange}
+          />
+        </NoteListHeader>
         <div>{this.renderList()}</div>
       </NoteListWrapper>
     )
