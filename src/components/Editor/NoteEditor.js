@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import {
   EditorWrapper,
   TextArea,
-  EditorForm,
   EditorInput,
   EditorHeader,
 } from './NoteEditor.sc'
@@ -42,7 +41,6 @@ class NoteEditor extends React.Component {
 
   componentDidUpdate() {
     const { selectedNote } = this.props
-    console.log(selectedNote,"componentdidupdate")
     const { id } = this.state
     if (selectedNote && id !== selectedNote.id) {
       this.setState({
@@ -71,14 +69,14 @@ class NoteEditor extends React.Component {
     this.props.selectNote(null)
   }
 
-  saveNote() {
+  saveNote(){
     const { selectedNote } = this.props
     let note = {
       noteTitle: this.state.noteTitle,
       noteText: this.state.noteText,
       id: this.state.id,
     }
-    if (selectedNote) {
+    if(selectedNote){
       this.props.updateNote(note)
     } else {
       this.setState({ id: Date.now() }, () => {
@@ -87,6 +85,7 @@ class NoteEditor extends React.Component {
     }
   }
 
+  //belki de bu olmamali
   enterPressed(event) {
     let note = {
       noteTitle: this.state.noteTitle,
@@ -94,7 +93,6 @@ class NoteEditor extends React.Component {
       id: Date.now(),
     }
     let code = event.keyCode || event.which
-    //title varken ve text yokken enter a basinca sayfayi yeniliyor??
     if (code === 13 && note.noteText !== '' && note.noteTitle !== '') {
       this.props.addNote(note)
       this.setState({
@@ -112,14 +110,12 @@ class NoteEditor extends React.Component {
     )
     this.props.deleteNote(selectedNoteId.id)
     this.props.selectNote(null)
-    //burada neden selectednote u null yapmam editor ve input un bosalmasina yetmedi?
+    //bu kisim yuzunden deletenote u tasiyamiyorum
     this.setState({
       noteTitle: '',
       noteText: '',
       id: null,
     })
-    console.log(this.props.selectedNote, 'deletenote')
-    console.log(this.state)
   }
 
   render() {
@@ -127,13 +123,12 @@ class NoteEditor extends React.Component {
     return (
       <EditorWrapper>
         <EditorHeader>
-          <EditorForm>
-            <EditorInput
-              placeholder="Note title..."
-              value={noteTitle}
-              onChange={this.handleInputChange}
-            />
-          </EditorForm>
+          <EditorInput
+            placeholder="Note title..."
+            value={noteTitle}
+            onChange={this.handleInputChange}
+          />
+
           <Button onClick={this.saveNote} appliedStyle="default">
             SAVE
           </Button>
@@ -146,6 +141,7 @@ class NoteEditor extends React.Component {
           onChange={(e) => this.handleTextChange(e.target.value)}
           value={noteText}
           onKeyPress={this.enterPressed.bind(this)}
+          tabindex="0"
         />
       </EditorWrapper>
     )

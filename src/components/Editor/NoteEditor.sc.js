@@ -9,13 +9,6 @@ export const EditorWrapper = styled.div`
   background-color: #5e5c5c;
 `
 
-export const EditorForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  outline: none;
-`
 export const EditorHeader = styled.div`
   position: relative;
   display: flex;
@@ -35,6 +28,10 @@ export const EditorButton = styled.button`
   border-radius: 5px;
 `
 export const EditorInput = styled.input`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  outline: none;
   outline: none;
   b1px solid #d0d0d0;
   height: 40px;

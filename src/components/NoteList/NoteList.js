@@ -10,6 +10,9 @@ import {
   SearchIcon,
   NoteListButton,
   NoteListDots,
+  NoteListModal,
+  ModalListElement,
+  ModalGarbage,
 } from './NoteList.sc'
 
 class NoteList extends React.Component {
@@ -17,7 +20,8 @@ class NoteList extends React.Component {
     super(props)
     this.state = {
       selectedNote: {},
-      filteredNotes: []
+      filteredNotes: [],
+      isModalOpen: true,
     }
     this.selectNote = this.selectNote.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -25,47 +29,47 @@ class NoteList extends React.Component {
 
   componentDidMount() {
     this.setState({
-      filteredNotes: this.props.notes
+      filteredNotes: this.props.notes,
+    })
+    this.state.filteredNotes.forEach(function (element) {
+      element.Active = false
     })
   }
 
-
-  static getDerivedStateFromProps(nextProps,prevState){
-    if(nextProps.notes !== prevState.filteredNotes ){
-      console.log("GETDERIVED")
-      return {
-        filteredNotes: nextProps.notes
-      }
-    }
-    return null
-  }
-  //will be replaced with getDerivedStateFromProps
-  // componentWillReceiveProps(nextProps) {
-  //     this.setState({
+  // static getDerivedStateFromProps(nextProps,prevState){
+  //   if(nextProps.notes !== prevState.filteredNotes ){
+  //     console.log("GETDERIVED")
+  //     return {
   //       filteredNotes: nextProps.notes
-  //     })
+  //     }
+  //   }
+  //   return null
   // }
+  //will be replaced with getDerivedStateFromProps
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      filteredNotes: nextProps.notes,
+    })
+  }
 
-  handleChange(e){
+  handleChange(e) {
     let currentList = []
     let newList = []
 
-    if(e.target.value !== ""){
+    if (e.target.value !== '') {
       currentList = this.props.notes
-      newList = currentList.filter(item => {
+      newList = currentList.filter((item) => {
         const lc = item.noteTitle.toLowerCase()
         const filter = e.target.value.toLowerCase()
         return lc.includes(filter)
       })
-      console.log(newList,"newlist")
-    }else{
+    } else {
       newList = this.props.notes
     }
 
     this.setState({
-      filteredNotes:newList
+      filteredNotes: newList,
     })
-    console.log(this.state.filteredNotes, "inside function")
   }
 
   selectNote(id) {
@@ -74,6 +78,9 @@ class NoteList extends React.Component {
     this.setState({ selectedNote: selectedNote })
     return selectedNote
   }
+
+  //modal pozisyonu calismiyor sebep yaptigim islemin re-render tetiklememesi
+  //list elemanlari problemli
   renderList() {
     return this.state.filteredNotes.map((object, index) => {
       return (
@@ -84,25 +91,51 @@ class NoteList extends React.Component {
         >
           {object.isSelected && <NoteListStar size="20" />}
           {object.noteTitle}
-          <NoteListButton onClick={() => {console.log("button")}}>
-            <NoteListDots size="20"/>
+          <NoteListButton
+            id={object.id}
+            onClick={(e) => {
+              object.Active = !object.Active
+              let myDiv = document.getElementById(object.id)
+              myDiv.style.left = e.clientX + 'px'
+              myDiv.style.top = e.clientY + 'px'
+            }}
+          >
+            <NoteListDots size="20" />
           </NoteListButton>
+          {object.Active && (
+            <NoteListModal>
+              <ModalListElement key="fav">
+                <NoteListStar size="20" />
+                Mark as Favourite
+              </ModalListElement>
+              <ModalListElement key="del">
+                <ModalGarbage size="20" />
+                Delete
+              </ModalListElement>
+            </NoteListModal>
+          )}
         </NoteListElement>
       )
     })
   }
   render() {
-    console.log(this.state.filteredNotes,"filterednotes")
     return (
       <NoteListWrapper>
         <NoteListHeader>
-          <SearchInput type="text"
-                 className="input"
-                 placeholder="Search Notes..."
-                 onChange={this.handleChange}
+          <SearchInput
+            type="text"
+            className="input"
+            placeholder="Search Notes..."
+            onChange={this.handleChange}
           />
         </NoteListHeader>
-        <div>{this.renderList()}</div>
+        <div
+          style={{
+            overflowY: 'scroll',
+          }}
+        >
+          {this.renderList()}
+        </div>
       </NoteListWrapper>
     )
   }
