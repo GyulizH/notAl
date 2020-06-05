@@ -19,9 +19,12 @@ export const NoteListHeader = styled.div`
 `
 
 export const NoteListModal = styled.div`
-  position: fixed;
+  position: absolute;
+  z-index: 2;
+  right:10px;
+  top:40px;
   background-color: white;
-  width: 20%;
+  width: 200px;
   border: 1px solid #b8b3b1;
   border-radius: 5px;
 `
@@ -61,6 +64,7 @@ export const NoteListButton = styled.button`
 //cursor pointer on hover not working
 //how to arrange transition on selecting the list element
 export const NoteListElement = styled.li`
+  position: relative;
   list-style-type: none;
   background-color: ${({ theme, isSelected }) =>
     isSelected ? theme.selected : theme.unselected};
