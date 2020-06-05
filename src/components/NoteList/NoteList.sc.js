@@ -10,6 +10,9 @@ export const NoteListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #e5e5e5;
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 `
 export const NoteListHeader = styled.div`
   border-bottom: 1px solid #b8b3b1;
@@ -53,7 +56,7 @@ export const NoteListButton = styled.button`
   background-color: transparent;
   opacity: 0;
   float: right;
-  outline:none;
+  outline: none;
 `
 //cursor pointer on hover not working
 //how to arrange transition on selecting the list element
@@ -92,10 +95,10 @@ NoteListElement.defaultProps = {
 export const NoteListStar = styled(StarOutline)`
   size: 1;
   margin-right: 5px;
-  margin-bottom:4px;
+  margin-bottom: 4px;
 `
 
 export const ModalGarbage = styled(TrashAlt)`
   margin-right: 5px;
-  margin-bottom:4px;
+  margin-bottom: 4px;
 `

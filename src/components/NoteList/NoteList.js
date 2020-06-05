@@ -20,69 +20,51 @@ class NoteList extends React.Component {
     super(props)
     this.state = {
       selectedNote: {},
-      filteredNotes: [],
+      notes: [],
       isModalOpen: true,
+      searchKeyword: '',
+      toggledItemId: null
     }
     this.selectNote = this.selectNote.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.setSearchKeyword = this.setSearchKeyword.bind(this)
+    this.toggleListItem = this.toggleListItem.bind(this)
   }
 
   componentDidMount() {
     this.setState({
-      filteredNotes: this.props.notes,
-    })
-    this.state.filteredNotes.forEach(function (element) {
-      element.Active = false
+      notes: this.props.notes,
     })
   }
 
-  // static getDerivedStateFromProps(nextProps,prevState){
-  //   if(nextProps.notes !== prevState.filteredNotes ){
-  //     console.log("GETDERIVED")
-  //     return {
-  //       filteredNotes: nextProps.notes
-  //     }
-  //   }
-  //   return null
-  // }
-  //will be replaced with getDerivedStateFromProps
-  componentWillReceiveProps(nextProps) {
+  setSearchKeyword(event) {
+    const searchKeyword = event.target.value
     this.setState({
-      filteredNotes: nextProps.notes,
+      searchKeyword
     })
   }
-
-  handleChange(e) {
-    let currentList = []
-    let newList = []
-
-    if (e.target.value !== '') {
-      currentList = this.props.notes
-      newList = currentList.filter((item) => {
-        const lc = item.noteTitle.toLowerCase()
-        const filter = e.target.value.toLowerCase()
-        return lc.includes(filter)
+  filterNotes(notes) {
+    const searchKeyword = this.state.searchKeyword.toLowerCase()
+    return notes.filter(note => {
+        return note.noteTitle.toLowerCase().includes(searchKeyword)
       })
-    } else {
-      newList = this.props.notes
-    }
-
-    this.setState({
-      filteredNotes: newList,
-    })
   }
 
   selectNote(id) {
-    const selectedNote = this.props.notes.find((note) => note.id === id)
+    const selectedNote = this.props.notes.find(note => note.id === id)
     this.props.selectNote(selectedNote.id)
     this.setState({ selectedNote: selectedNote })
     return selectedNote
   }
-
+  toggleListItem(note, event) {
+    event.stopPropagation()
+    this.setState({
+      toggledItemId: this.state.toggledItemId == note.id ? null : note.id,
+    })
+  }
   //modal pozisyonu calismiyor sebep yaptigim islemin re-render tetiklememesi
   //list elemanlari problemli
   renderList() {
-    return this.state.filteredNotes.map((object, index) => {
+    return this.filterNotes(this.props.notes).map((object, index) => {
       return (
         <NoteListElement
           isSelected={object.isSelected}
@@ -93,16 +75,11 @@ class NoteList extends React.Component {
           {object.noteTitle}
           <NoteListButton
             id={object.id}
-            onClick={(e) => {
-              object.Active = !object.Active
-              let myDiv = document.getElementById(object.id)
-              myDiv.style.left = e.clientX + 'px'
-              myDiv.style.top = e.clientY + 'px'
-            }}
+            onClick={(event) => this.toggleListItem(object,event)}
           >
             <NoteListDots size="20" />
           </NoteListButton>
-          {object.Active && (
+          {object.id == this.state.toggledItemId && (
             <NoteListModal>
               <ModalListElement key="fav">
                 <NoteListStar size="20" />
@@ -126,7 +103,7 @@ class NoteList extends React.Component {
             type="text"
             className="input"
             placeholder="Search Notes..."
-            onChange={this.handleChange}
+            onChange={this.setSearchKeyword}
           />
         </NoteListHeader>
         <div
@@ -144,7 +121,7 @@ class NoteList extends React.Component {
 const mapStateToProps = ({ notes }) => {
   return { notes }
 }
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   selectNote,
   dispatch,
 })
